@@ -1,0 +1,55 @@
+
+function piResponse() {
+		piSetCookie('visitor_id576863', '256278916', 3650);
+			piSetCookie('visitor_id576863-hash', 'f3a6e898a63a59e8831fd21751726f0c17d30b3709a02f224e6dbcfa7ea853bd8f3295cceb89c17573a1eb73eaefa28f1c11ec6c', 3650);
+		
+		if (document.location.protocol != "https:" || (document.location.protocol == "https:" && true)) {
+		var analytics_link = document.location.protocol + "//" + "www2.plastics.saint-gobain.com/analytics?";
+		pi.tracker.visitor_id='256278916';
+
+				pi.tracker.visitor_id_sign='f3a6e898a63a59e8831fd21751726f0c17d30b3709a02f224e6dbcfa7ea853bd8f3295cceb89c17573a1eb73eaefa28f1c11ec6c';
+		
+				pi.tracker.campaign_id='10805';
+		
+		var variables = 'conly=true';
+		for (property in pi.tracker) {
+					variables += "&" + property + "=" + encodeURIComponent(pi.tracker[property]);
+				}
+		var headID = document.getElementsByTagName("head")[0];
+		piScriptObj[piScriptNum] = document.createElement('script');
+		piScriptObj[piScriptNum].type = 'text/javascript';
+		piScriptObj[piScriptNum].src = analytics_link + variables;
+		headID.appendChild(piScriptObj[piScriptNum]);
+		piScriptObj[piScriptNum].onload = function() { return; }
+	}
+	
+		// Get script name
+	const pdjsScriptName = typeof window.getPardotUrl === 'function' ? 'pd.js' : 'pi.js';
+
+		// Cache buster
+	if (typeof piVersion === 'undefined' || piVersion !== '1.0.0') {
+		// Get script domain
+		const pdjsDomain = (document.location.protocol === 'https:') ? 'https://pi.pardot.com' : 'http://cdn.pardot.com';
+
+		// Create iframe
+		const pdjsIframe = document.createElement('iframe');
+		pdjsIframe.name = pdjsIframe.id = 'ifr_' + Date.now();
+		pdjsIframe.width = pdjsIframe.height = 0;
+		document.body.appendChild(pdjsIframe);
+
+		// Create form
+		const pdjsForm = document.createElement('form');
+		pdjsForm.method = "POST";
+		pdjsForm.target = pdjsIframe.name;
+		pdjsForm.action = pdjsDomain + '/' + pdjsScriptName;
+		document.body.appendChild(pdjsForm);
+
+		// Request script
+		pdjsForm.submit();
+	}
+	}
+piResponse();
+
+
+
+
