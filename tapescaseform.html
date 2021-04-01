@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<body>
+<META HTTP-EQUIV="Content-type" CONTENT="text/html; charset=UTF-8">
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<script>
+ function timestamp() { var response = document.getElementById("g-recaptcha-response"); if (response == null || response.value.trim() == "") {var elems = JSON.parse(document.getElementsByName("captcha_settings")[0].value);elems["ts"] = JSON.stringify(new Date().getTime());document.getElementsByName("captcha_settings")[0].value = JSON.stringify(elems); } } setInterval(timestamp, 500); 
+</script>
+
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: Please add the following <FORM> element to your page.             -->
+<!--  ----------------------------------------------------------------------  -->
+
+<form action="https://sgppl--fullsb.my.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8" method="POST">
+
+<input type=hidden name='captcha_settings' value='{"keyname":"Tapes_Test","fallback":"true","orgId":"00D6w0000008anI","ts":""}'>
+<input type=hidden name="orgid" value="00D6w0000008anI">
+<input type=hidden name="retURL" value="https://enc-bis-team.github.io/Salesforce-Chat/tapes.html">
+
+<!--  ----------------------------------------------------------------------  -->
+<!--  NOTE: These fields are optional debugging elements. Please uncomment    -->
+<!--  these lines if you wish to test in debug mode.                          -->
+<!--  <input type="hidden" name="debug" value=1>                              -->
+<!--  <input type="hidden" name="debugEmail"                                  -->
+<!--  value="christian.prasuhn@saint-gobain.com">                             -->
+<!--  ----------------------------------------------------------------------  -->
+
+<label for="name">Contact Name</label><input  id="name" maxlength="80" name="name" size="20" type="text" /><br>
+
+<label for="email">Email</label><input  id="email" maxlength="80" name="email" size="20" type="text" /><br>
+
+<label for="phone">Phone</label><input  id="phone" maxlength="40" name="phone" size="20" type="text" /><br>
+
+<label for="subject">Subject</label><input  id="subject" maxlength="80" name="subject" size="20" type="text" /><br>
+
+<label for="description">Description</label><textarea name="description"></textarea><br>
+
+SBU:<select  id="00N0a00000CNHpX" name="00N0a00000CNHpX" title="SBU"><option value="">--None--</option><option value="Aerospace">Aerospace</option>
+<option value="APS (Automotive Polymer Solutions)">APS (Automotive Polymer Solutions)</option>
+<option value="Bearings">Bearings</option>
+<option value="BioProcess Solutions">BioProcess Solutions</option>
+<option value="CES (Critical Engineered Solutions)">CES (Critical Engineered Solutions)</option>
+<option value="Coated Fabrics">Films and Fabrics</option>
+<option value="Filtration">Filtration</option>
+<option value="Filtration - BioProcess">Filtration - BioProcess</option>
+<option value="Filtration - Medical">Filtration - Medical</option>
+<option value="Fluid Transfer">Fluid Transfer</option>
+<option value="High Purity Systems">High Purity Systems</option>
+<option value="Medical Components">Medical Components</option>
+<option value="PPL-Other">PPL-Other</option>
+<option value="Pritex">Pritex</option>
+<option value="Sealing Solutions">Sealing Solutions</option>
+<option value="Foam &amp; Tapes">Tape Solutions</option>
+<option value="Specialty Films - Thin">Thin Films</option>
+</select><br>
+
+<input type="hidden"  id="external" name="external" value="1" /><br>
+
+<div class="g-recaptcha" data-sitekey="6LcquJcaAAAAANT9nviqbiT68cosQSjNtA3iQJjp"></div><br>
+<input type="submit" name="submit">
+
+</form>
+</body>
+</html>
