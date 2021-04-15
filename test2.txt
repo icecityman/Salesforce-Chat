@@ -1,0 +1,15 @@
+DB_TYPE=mssql
+DB_HOST=h90sv31100101db.zh.if.atcsg.net
+DB_PORT=1433
+DB_USERNAME=SealsGMDUser
+DB_PASSWORD=QgMa?7:-+x&@vNRm
+DB_NAME=SealsGMD
+DEPLOY_PATH=
+LOG_LEVEL_VERBOSE=true
+URL=
+CERT_PASSWORD=password
+CAS_URL=https://uat.websso.saint-gobain.com/cas/login
+TYPEORM_ENTITY_PATH=dist/db/entity
+TYPEORM_MIGRATION_PATH=dist/db/migration
+TYPEORM_SUBSCRIBER_PATH=dist/db/subscriber
+TYPEORM_EXTENSION=/*.ts
