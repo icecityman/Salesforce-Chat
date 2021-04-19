@@ -13,4 +13,4 @@ CAS_URL=https://uat.websso.saint-gobain.com/cas/login
 TYPEORM_ENTITY_PATH=dist/db/entity
 TYPEORM_MIGRATION_PATH=dist/db/migration
 TYPEORM_SUBSCRIBER_PATH=dist/db/subscriber
-TYPEORM_EXTENSION=/*.ts
+TYPEORM_EXTENSION=/*.js
