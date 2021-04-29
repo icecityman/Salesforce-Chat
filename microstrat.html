@@ -12,7 +12,7 @@
 
 </head>
 
-<body onload="showDossier()">
+<body onload="login()">
 
 <div id="myDossier"></div>
 
@@ -50,7 +50,29 @@
 
       if (response.ok) {
 
+	var placeHolderDiv = document.getElementById("myDossier");
+
+    var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
+
+    microstrategy.dossier.create({
+
+      placeholder: placeHolderDiv,
+
+      url: dossierUrl,
+
+      enableCustomAuthentication: true,
+
+      enableResponsive: true,
+
+      customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+
+      getLoginToken: response.headers.get('x-mstr-authToken')
+
+    });      
+	      
         return response.headers.get('x-mstr-authToken');
+	      
+	
 
       } else {
 
