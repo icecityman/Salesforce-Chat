@@ -1,0 +1,110 @@
+<html>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+ 
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>Simple Embedding Sample with Navigation</h1>
+    </div>
+  </div>
+  <div style="width: 20%; background-color: white; float:left;">
+    <div id="nav1" style="width: 100%;"></div>
+  </div>
+  <div style="width: 80%; background-color: white; float:right;">
+    <div id="dossierContainer1" style="width: 100%;"></div>
+  </div>
+</body>
+ 
+<!-- Replace path to point to the embeddingLib in your environment -->
+            
+<script src="https://<YOUR_SERVER>/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+<script>
+  //BEGIN CONFIG PARAMETERS -------------------------------------------------------------------------
+  baseRestURL = "https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary";
+  username = "TestUser";
+  password = "SFapiTest";
+  projectID = "499B0641476D96397D454B8CE15BC5EE";
+  dossierID = "EE071DE74CF79D3BD2A3B3A202ED048F";
+  //END CONFIG PARAMETERS -------------------------------------------------------------------------
+  //Form PostData for login REST request
+  var postData = {};
+  postData.username = username;
+  postData.password = password;
+  postData.loginMode = 1;
+  var projectUrl = baseRestURL + '/app/' + projectID;
+  var dossierUrl = projectUrl + '/' + dossierID;
+  console.log("DossierURL: " + dossierUrl);
+  //populate div with dossier
+  microstrategy.dossier.create({
+    placeholder: document.getElementById("dossierContainer1"),
+    url: dossierUrl,
+    enableCustomAuthentication: true,
+    enableResponsive: false,
+    containerWidth: '400px',
+    containerHeight: '600px',
+    customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+    getLoginToken: function() {
+      return getXHRRequestPromise(baseRestURL + '/api/auth/login', postData, 'POST', 'application/json', 'x-mstr-authToken').then(function(authToken) {
+        return authToken;
+      })
+    }
+  }).then(function(dossier) {
+    //add any code you want to run after dossier loads
+    var navDiv = document.getElementById("nav1");
+    createChapterPageNav(dossier, navDiv);
+  });
+  function getXHRRequestPromise(url, body, method, contentType, desiredHeader) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url);
+      xhr.withCredentials=true;
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader("Accept", "application/json");
+      xhr.send(JSON.stringify(body));
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 2) {
+          resolve(xhr.getResponseHeader(desiredHeader));
+        } else {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText
+          });
+        }
+      };
+    });
+  };
+  function createChapterPageNav(dossier, div) {
+    var navData = dossier.getTableContent();
+    var pill = document.createElement("ul");
+    pill.className = "nav nav-pills nav-stacked";
+    var child = document.createElement("li");
+    child.className = "active";
+    var href = document.createElement("a");
+    href.href = "#";
+    href.innerHTML = "Navigation";
+    child.appendChild(href);
+    pill.appendChild(child);
+    for (var i = 0; i < navData.chapters.length; i++) {
+      var chapter = navData.chapters[i];
+      for (var j = 0; j < chapter.pages.length; j++) {
+        var page = chapter.pages[j];
+        var newChild = null;
+        var newHREF = null;
+        newChild = document.createElement("li");
+        newHREF = document.createElement("a");
+        newHREF.href = "#";
+        newHREF.innerHTML = chapter.name + ": " + page.name;
+        newHREF.id = page.nodeKey;
+        console.log(newHREF.id);
+        newHREF.onclick = function() {
+          console.log("trying to navigate to: " + this.id)
+          dossier.navigateToPage(dossier.getPageByNodeKey(this.id))
+        };
+        newChild.appendChild(newHREF);
+        pill.appendChild(newChild);
+      }
+    }
+    div.appendChild(pill);
+  }
+</script>
