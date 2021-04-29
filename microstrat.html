@@ -3,19 +3,14 @@
 <html lang="en">
 
 <head>
-
   <meta charset="UTF-8">
-
   <title>LoginExample</title>
-
   <script type="text/javascript" src="https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
-
 </head>
 
 <body onload="login()">
-
 <div id="myDossier"></div>
-
+	
 <script type="text/javascript">
 
   var BASE_URL = "https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary";
@@ -29,97 +24,43 @@
     var options = {
 
       method: 'POST',
-
       credentials: 'include', // Including cookie
-
       mode: 'cors', // Setting as cors mode for cross origin
-
       headers: {'Content-Type': 'application/json'},
-
       body: JSON.stringify({
 	        "loginMode": 1,
 	        "username": username,
 	        "password": password
 	    })
-
     };
 
     fetch(BASE_URL + '/api/auth/login', options)
-
     .then(function (response) {
-
       if (response.ok) {
-
      console.log(response.headers.get('x-mstr-authToken'));	      
-	      
 	var placeHolderDiv = document.getElementById("myDossier");
-
     var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
 
     microstrategy.dossier.create({
-
       placeholder: placeHolderDiv,
-
       url: dossierUrl,
-
       enableCustomAuthentication: true,
-
       enableResponsive: true,
-
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-
       getLoginToken: response.headers.get('x-mstr-authToken')
-
     });      
-	      
-    //    return response.headers.get('x-mstr-authToken');
-	      
-	
 
       } else {
-
         response.json().then(function(json) {
-
           console.log(json);
-
         });
-
       }
 
     }).catch(function (error) {
-
       console.log(error);
-
     });
-
-  }
-
-  function showDossier() {
-
-    var placeHolderDiv = document.getElementById("myDossier");
-
-    var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
-
-    microstrategy.dossier.create({
-
-      placeholder: placeHolderDiv,
-
-      url: dossierUrl,
-
-      enableCustomAuthentication: true,
-
-      enableResponsive: true,
-
-      customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-
-      getLoginToken: login
-
-    });
-
   }
 
 </script>
-
 </body>
-
 </html>
