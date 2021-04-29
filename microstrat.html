@@ -37,9 +37,10 @@
     fetch(BASE_URL + '/api/auth/login', options)
     .then(function (response) {
       if (response.ok) {
-     console.log(response.headers.get('x-mstr-authToken'));	      
-	var placeHolderDiv = document.getElementById("myDossier");
-    var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
+     var sectoken = response.headers.get('x-mstr-authToken');
+     console.log(sectoken);	      
+     var placeHolderDiv = document.getElementById("myDossier");
+     var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
 
     microstrategy.dossier.create({
       placeholder: placeHolderDiv,
@@ -47,7 +48,7 @@
       enableCustomAuthentication: true,
       enableResponsive: true,
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-      getLoginToken: response.headers.get('x-mstr-authToken')
+      getLoginToken: sectoken
     });      
 
       } else {
