@@ -44,12 +44,14 @@
 
     };
 
-    return fetch(BASE_URL + '/api/auth/login', options)
+    fetch(BASE_URL + '/api/auth/login', options)
 
     .then(function (response) {
 
       if (response.ok) {
 
+     console.log(response.headers.get('x-mstr-authToken'));	      
+	      
 	var placeHolderDiv = document.getElementById("myDossier");
 
     var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
@@ -70,7 +72,7 @@
 
     });      
 	      
-        return response.headers.get('x-mstr-authToken');
+    //    return response.headers.get('x-mstr-authToken');
 	      
 	
 
