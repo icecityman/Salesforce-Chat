@@ -9,7 +9,12 @@
 </head>
 
 <div>Token:<input type="text" id="Token"/></div>
-<div><input type="submit" value="Show Dossier" onclick="getXHRRequestPromise()" /></div>
+<div><input type="submit" value="Show Dossier" onclick="function() {
+      return getXHRRequestPromise(BASE_URL + '/api/sessions', 'GET').then(function() {
+       console.log('Token: '+document.getElementById('Token').value);
+        return document.getElementById("Token").value;
+      })
+    }" /></div>
 <div id="myDossier"></div>
 	
 <script type="text/javascript">
