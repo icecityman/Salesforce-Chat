@@ -44,7 +44,7 @@
       xhr.open(method, url);
       xhr.setRequestHeader("X-MSTR-AuthToken", document.getElementById("Token").value);
       xhr.setRequestHeader("Accept", "application/json");
-      xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://enc-bis-team.github.io');
+      //xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://enc-bis-team.github.io');
       xhr.send(null);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 2) {
