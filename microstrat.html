@@ -29,12 +29,34 @@
       enableCustomAuthentication: true,
       enableResponsive: true,
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-      getLoginToken: function() { 
-	      console.log(document.getElementById("Token").value);
-	      return document.getElementById("Token").value }
-    });      
+      getLoginToken: function() {
+      return getXHRRequestPromise(baseRestURL + '/api/sessions', postData, 'PUT').then(function(authToken) {
+       console.log('Token: '+document.getElementById("Token").value);
+        return document.getElementById("Token").value;
+      })
+    }
   }
 
+  function getXHRRequestPromise(url, method) {
+    return new Promise(function(resolve, reject) {
+      var xhr = new XMLHttpRequest();
+      xhr.open(method, url);
+      xhr.setRequestHeader('X-MSTR-AuthToken', document.getElementById("Token").value);
+      xhr.setRequestHeader("Accept", "application/json");
+      xhr.send();
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === 2) {
+          resolve(xhr.getResponseHeader(desiredHeader));
+        } else {
+          reject({
+            status: this.status,
+            statusText: xhr.statusText
+          });
+        }
+      };
+    });
+  };	
+	
 </script>
 </body>
 </html>
