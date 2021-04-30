@@ -30,7 +30,7 @@
       enableCustomAuthentication: true,
       enableResponsive: true,
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-      getLoginToken: () => {return sectoken}
+      getLoginToken: function() { return document.getElementById("Token").value }
     });      
   }
 
