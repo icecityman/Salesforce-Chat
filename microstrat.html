@@ -30,7 +30,7 @@
       enableResponsive: true,
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
       getLoginToken: function() {
-      return getXHRRequestPromise(BASE_URL + '/api/sessions', 'PUT').then(function() {
+      return getXHRRequestPromise(BASE_URL + '/api/sessions', 'GET').then(function() {
        console.log('Token: '+document.getElementById("Token").value);
         return document.getElementById("Token").value;
       })
