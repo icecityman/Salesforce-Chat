@@ -61,7 +61,7 @@
     customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
     getLoginToken: function() {
       return getXHRRequestPromise(baseRestURL + '/api/auth/login', postData, 'POST', 'application/json', 'x-mstr-authToken').then(function(authToken) {
-       console.log(authToken);
+       console.log('Token: '+authToken);
         return authToken;
       })
     }
