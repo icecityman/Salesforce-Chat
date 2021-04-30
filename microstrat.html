@@ -43,7 +43,7 @@
       xhr.open(method, url);
       xhr.setRequestHeader('X-MSTR-AuthToken', document.getElementById("Token").value);
       xhr.setRequestHeader("Accept", "application/json");
-      xhr.send('');
+      xhr.send(null);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 2) {
           resolve(xhr.getResponseHeader(desiredHeader));
