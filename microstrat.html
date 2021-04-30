@@ -47,7 +47,7 @@
       xhr.send(null);
       xhr.onreadystatechange = function() {
         if (xhr.readyState === 2) {
-          resolve(xhr.getResponseHeader(desiredHeader));
+          console.log("Ok");
         } else {
           reject({
             status: this.status,
