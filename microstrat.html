@@ -8,37 +8,19 @@
   <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
 </head>
 
-<body onload="login()">
+<div>Username:<input type="text" id="Token"/></div>
+<div><input type="submit" value="Show Dossier" onclick="login()" /></div>
 <div id="myDossier"></div>
 	
 <script type="text/javascript">
 
   var BASE_URL = "https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary";
-  var username = "TestUser";
-  var password = "SFapiTest";
   var projectId = "499B0641476D96397D454B8CE15BC5EE";
   var dossierId = "EE071DE74CF79D3BD2A3B3A202ED048F";
 
   function login() {
 
-    var options = {
-
-      method: 'POST',
-      credentials: 'include', // Including cookie
-      mode: 'cors', // Setting as cors mode for cross origin
-      headers: {'Content-Type': 'application/json', 'accept': 'application/json'},
-      body: JSON.stringify({
-	        "loginMode": 1,
-	        "username": username,
-	        "password": password
-	    })
-    };
-
-    fetch(BASE_URL + '/api/auth/login', options)
-    .then(function (response) {
-      if (response.ok) {
-     var sectoken = response.headers.get('x-mstr-authToken');
-     console.log(sectoken);	      
+     var sectoken = var password = document.getElementById("Token").value;    
      var placeHolderDiv = document.getElementById("myDossier");
      var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
 
@@ -50,16 +32,6 @@
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
       getLoginToken: sectoken
     });      
-
-      } else {
-        response.json().then(function(json) {
-          console.log(json);
-        });
-      }
-
-    }).catch(function (error) {
-      console.log(error);
-    });
   }
 
 </script>
