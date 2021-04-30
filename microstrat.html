@@ -29,7 +29,9 @@
       enableCustomAuthentication: true,
       enableResponsive: true,
       customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-      getLoginToken: function() { return document.getElementById("Token").value }
+      getLoginToken: function() { 
+	      console.log(document.getElementById("Token").value);
+	      return document.getElementById("Token").value }
     });      
   }
 
