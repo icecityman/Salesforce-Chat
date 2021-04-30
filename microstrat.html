@@ -42,7 +42,7 @@
     return new Promise(function(resolve, reject) {
       var xhr = new XMLHttpRequest();
       xhr.open(method, url);
-      xhr.setRequestHeader('X-MSTR-AuthToken', document.getElementById("Token").value);
+      xhr.setRequestHeader("X-MSTR-AuthToken", document.getElementById("Token").value);
       xhr.setRequestHeader("Accept", "application/json");
       xhr.send(null);
       xhr.onreadystatechange = function() {
