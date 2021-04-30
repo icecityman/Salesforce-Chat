@@ -28,7 +28,22 @@
   dossierID = "EE071DE74CF79D3BD2A3B3A202ED048F";
   //END CONFIG PARAMETERS -------------------------------------------------------------------------
   //Form PostData for login REST request
-  var postData = {};
+  var postData =  {
+  "username": "TestUser",
+  "password": "SFapiTest",
+  "loginMode": 1,
+  "maxSearch": 3,
+  "workingSet": 10,
+  "changePassword": false,
+  "newPassword": "string",
+  "metadataLocale": "en_us",
+  "warehouseDataLocale": "en_us",
+  "displayLocale": "en_us",
+  "messagesLocale": "en_us",
+  "numberLocale": "en_us",
+  "timeZone": "UTC",
+  "applicationType": 35
+};
   postData.username = username;
   postData.password = password;
   postData.loginMode = 1;
