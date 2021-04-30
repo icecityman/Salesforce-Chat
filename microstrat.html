@@ -49,9 +49,8 @@
     .then(function (response) {
 
       if (response.ok) {
-//console.log(response.headers.get('x-mstr-authToken'));
-	      console.log("hardcoded");
-        return "escjfbq82oahk4snoj8jc483hr";
+      //console.log(response.headers.get('x-mstr-authToken'));
+        return response.headers.get('x-mstr-authToken');
 
       } else {
 
