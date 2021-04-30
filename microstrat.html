@@ -49,7 +49,7 @@
     .then(function (response) {
 
       if (response.ok) {
-
+console.log(response.headers.get('x-mstr-authToken'));
         return response.headers.get('x-mstr-authToken');
 
       } else {
