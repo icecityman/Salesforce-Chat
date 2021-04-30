@@ -3,67 +3,99 @@
 <html lang="en">
 
 <head>
+
   <meta charset="UTF-8">
+
   <title>LoginExample</title>
-  <script type="text/javascript" src="https://demo.microstrategy.com/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+
+  <script type="text/javascript" src="https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary/javascript/embeddinglib.js"></script>
+
 </head>
 
-<div>Token:<input type="text" id="Token"/></div>
-<div><input type="submit" value="Show Dossier" onclick="function() {
-      return getXHRRequestPromise(BASE_URL + '/api/sessions', 'GET').then(function() {
-       console.log('Token: '+document.getElementById('Token').value);
-        return document.getElementById("Token").value;
-      })
-    }" /></div>
+<body onload="showDossier()">
+
 <div id="myDossier"></div>
-	
+
 <script type="text/javascript">
 
   var BASE_URL = "https://h90sv31000702wb.zh.if.atcsg.net:8443/MicroStrategyLibrary";
+  var username = "TestUser";
+  var password = "SFapiTest";
   var projectId = "499B0641476D96397D454B8CE15BC5EE";
   var dossierId = "EE071DE74CF79D3BD2A3B3A202ED048F";
 
   function login() {
- 
-     var placeHolderDiv = document.getElementById("myDossier");
-     var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
+
+    var options = {
+
+      method: 'POST',
+
+      credentials: 'include', // Including cookie
+
+      mode: 'cors', // Setting as cors mode for cross origin
+
+      headers: {'Content-Type': 'application/json'},
+
+      body: JSON.stringify({
+	        "loginMode": 1,
+	        "username": username,
+	        "password": password
+	    })
+
+    };
+
+    return fetch(BASE_URL + '/api/auth/login', options)
+
+    .then(function (response) {
+
+      if (response.ok) {
+
+        return response.headers.get('x-mstr-authToken');
+
+      } else {
+
+        response.json().then(function(json) {
+
+          console.log(json);
+
+        });
+
+      }
+
+    }).catch(function (error) {
+
+      console.log(error);
+
+    });
+
+  }
+
+  function showDossier() {
+
+    var placeHolderDiv = document.getElementById("myDossier");
+
+    var dossierUrl = BASE_URL +'/app/'+ projectId + '/' + dossierId;
 
     microstrategy.dossier.create({
-      placeholder: placeHolderDiv,
-      url: dossierUrl,
-      enableCustomAuthentication: true,
-      enableResponsive: true,
-      customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
-      getLoginToken: function() {
-      return getXHRRequestPromise(BASE_URL + '/api/sessions', 'GET').then(function() {
-       console.log('Token: '+document.getElementById("Token").value);
-        return document.getElementById("Token").value;
-      })
-    }
-  })
-  };
 
-  function getXHRRequestPromise(url, method) {
-    return new Promise(function(resolve, reject) {
-      var xhr = new XMLHttpRequest();
-      xhr.open(method, url);
-      xhr.setRequestHeader("X-MSTR-AuthToken", document.getElementById("Token").value);
-      xhr.setRequestHeader("Accept", "application/json");
-      //xhr.setRequestHeader('Access-Control-Allow-Origin', 'https://enc-bis-team.github.io');
-      xhr.send(null);
-      xhr.onreadystatechange = function() {
-        if (xhr.readyState === 2) {
-          console.log("Ok");
-        } else {
-          reject({
-            status: this.status,
-            statusText: xhr.statusText
-          });
-        }
-      };
+      placeholder: placeHolderDiv,
+
+      url: dossierUrl,
+
+      enableCustomAuthentication: true,
+
+      enableResponsive: true,
+
+      customAuthenticationType: microstrategy.dossier.CustomAuthenticationType.AUTH_TOKEN,
+
+      getLoginToken: login
+
     });
-  };	
-	
+
+  }
+
 </script>
+
 </body>
+
 </html>
